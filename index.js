@@ -19,9 +19,11 @@ module.exports = postcss.plugin('postcss-extract-media', function(opts) {
                 // add the rule to the new css
                 newCss.append(rule);
 
-                // TODO: maybe add a option (default true) to remove occurences
-                // let's remove all occurences of @media print from the current css
-                rule.remove();
+                // let's remove all occurences of the matched media query from the current css
+                // unless removeExtracted is set to false
+                if (typeof opts.removeExtracted === 'undefined' || opts.removeExtracted === true) {
+					rule.remove();
+				}
             }
         });
 
